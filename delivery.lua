@@ -20,6 +20,7 @@ local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Workspace = game:GetService("Workspace")
 local RunService = game:GetService("RunService")
+local VirtualUser = game:GetService("VirtualUser")
 
 local LocalPlayer = Players.LocalPlayer
 
@@ -41,13 +42,10 @@ local STREAM_TIMEOUT = 8     -- seconds to wait for the Ring to stream in
 --========================================================================--
 -- Character / teleport helpers
 --========================================================================--
-local bb = game:GetService 'VirtualUser'
-game.Players.LocalPlayer.Idled:Connect(
-	function()
-		bb:CaptureController()
-		bb:ClickButton2(Vector2.new())
-	end)
-
+LocalPlayer.Idled:Connect(function()
+    VirtualUser:CaptureController()
+    VirtualUser:ClickButton2(Vector2.new())
+end)
 
 local function getRoot()
 	local char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
